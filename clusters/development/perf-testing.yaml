@@ -11,11 +11,13 @@ spec:
     path: resources/k6-cron
     helm:
       releaseName: perf-k6-cron
+      valueFiles:
+        - values.yaml
       parameters:
         - name: k6.env.TARGET_URL
           value: "http://quarkus-app:8080/hello"
         - name: cronjob.schedule
-          value: "0 * * * *"
+          value: "*/2 * * * *"
   destination:
     server: https://kubernetes.default.svc
     namespace: perf-testing
