@@ -10,7 +10,7 @@ imagePullSecrets: []
 # - name: ghcr-pull
 
 cronjob:
-  schedule: "0 * * * *" # hourly
+  schedule: "*/2 * * * *" # hourly
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 2
