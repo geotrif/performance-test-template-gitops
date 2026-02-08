@@ -10,9 +10,6 @@ spec:
   concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
   successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
-  {{- if .Values.cronjob.startingDeadlineSeconds }}
-  startingDeadlineSeconds: {{ .Values.cronjob.startingDeadlineSeconds }}
-  {{- end }}
   jobTemplate:
     spec:
       backoffLimit: 0
@@ -41,15 +38,3 @@ volumes:
   - name: scripts
     configMap:
       name: {{ include "k6-cron.fullname" . }}-scripts
-  {{- with .Values.nodeSelector }}
-nodeSelector:
-  {{ toYaml . | nindent 12 }}
-  {{- end }}
-  {{- with .Values.tolerations }}
-tolerations:
-  {{ toYaml . | nindent 12 }}
-  {{- end }}
-  {{- with .Values.affinity }}
-affinity:
-  {{ toYaml . | nindent 12 }}
-  {{- end }}
