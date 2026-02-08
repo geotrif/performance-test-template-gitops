@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/geotrif/performance-test-template.git
-    targetRevision: main
+    targetRevision: master
     path: apps/quarkus
   destination:
     server: https://kubernetes.default.svc
