@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/geotrif/performance-test-template.git
+    repoURL: https://github.com/geotrif/performance-test-template-gitops.git
     targetRevision: main
     path: charts/k6-cron
     helm:
