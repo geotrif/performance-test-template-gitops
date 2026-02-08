@@ -24,17 +24,17 @@ spec:
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               args:
-  {{ toYaml .Values.k6.args | nindent 16 }}
-  {{- if .Values.k6.env }}
-env:
-  {{ toYaml .Values.k6.env | nindent 16 }}
-  {{- end }}
-volumeMounts:
-  - name: scripts
-    mountPath: /scripts
-resources:
-  {{ toYaml .Values.resources | nindent 16 }}
-volumes:
-  - name: scripts
-    configMap:
-      name: {{ include "k6-cron.fullname" . }}-scripts
+                {{- toYaml .Values.k6.args | nindent 16 }}
+              {{- if .Values.k6.env }}
+              env:
+                {{- toYaml .Values.k6.env | nindent 16 }}
+              {{- end }}
+              volumeMounts:
+                - name: scripts
+                  mountPath: /scripts
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+          volumes:
+            - name: scripts
+              configMap:
+                name: {{ include "k6-cron.fullname" . }}-scripts
