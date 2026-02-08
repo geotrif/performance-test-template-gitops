@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/geotrif/performance-test-template.git
     targetRevision: master
-    path: clusters/development/perf-testing-quarkus-app
+    path: clusters/development
   destination:
     server: https://kubernetes.default.svc
     namespace: perf-testing
