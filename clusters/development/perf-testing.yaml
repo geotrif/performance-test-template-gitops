@@ -10,6 +10,7 @@ spec:
     targetRevision: master
     path: resources/k6-cron
     helm:
+      releaseName: perf-k6-cron
       parameters:
         - name: k6.env.TARGET_URL
           value: "http://quarkus-app:8080/hello"
