@@ -1,0 +1,45 @@
+namespace: perf-testing
+
+image:
+  repository: grafana/k6
+  tag: "0.49.0"
+  pullPolicy: IfNotPresent
+
+# For private registries
+imagePullSecrets: []
+# - name: ghcr-pull
+
+cronjob:
+  schedule: "0 * * * *" # hourly
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  startingDeadlineSeconds: null
+
+k6:
+  # k6 args (default: k6 run /scripts/test.js)
+  args:
+    - run
+    - /scripts/test.js
+
+  env:
+    - name: TARGET_URL
+      value: "http://quarkus-app:8080/hello"
+
+  scripts:
+    test.js: |
+      import http from 'k6/http'
+      import { check, sleep } from 'k6'
+  
+      export default function () {
+      let res = http.get(__ENV.TARGET_URL)
+      check(res, { 'api call successful': (r) => r.status === 200 })
+      check(res, { 'body': (r) => r.body === 'Hello from Quarkus REST' })
+
+      sleep(0.3)
+      }
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

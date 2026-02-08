@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "k6-cron.fullname" . }}-scripts
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    {{- include "k6-cron.labels" . | nindent 4 }}
+data:
+  {{- range $filename, $content := .Values.k6.scripts }}
+  {{ $filename | quote }}: |-
+  {{ $content | nindent 4 }}
+  {{- end }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: k6-cron
+description: Run k6 performance tests in-cluster using a CronJob + ConfigMap scripts
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

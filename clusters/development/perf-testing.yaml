@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: perf-testing-k6
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/geotrif/performance-test-template.git
+    targetRevision: main
+    path: charts/k6-cron
+    helm:
+      parameters:
+        - name: k6.env.TARGET_URL
+          value: "http://quarkus-app:8080/hello"
+        - name: cronjob.schedule
+          value: "0 * * * *"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: perf-testing
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
